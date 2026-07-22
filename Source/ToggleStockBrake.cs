@@ -1,4 +1,4 @@
-// ToggleStockBrake — binds a configurable key combo to toggling the stock
+// StockBrakeToggle — binds a configurable key combo to toggling the stock
 // "Brakes" action group, i.e. the exact same effect as clicking the brake
 // icon in the flight UI (status light included). Stock KSP's "B" key only
 // holds the brakes while pressed; there is no built-in way to latch/toggle
@@ -14,17 +14,17 @@
 // is released, making it impossible to re-engage the brakes with the
 // toggle. Default here is Alt+Y, since Y has no stock keybinding at all.
 //
-// Config: GameData/ToggleStockBrake/PluginData/ToggleStockBrake.cfg
+// Config: GameData/StockBrakeToggle/PluginData/StockBrakeToggle.cfg
 
 using System;
 using System.IO;
 using System.Reflection;
 using UnityEngine;
 
-[assembly: AssemblyTitle("ToggleStockBrake")]
+[assembly: AssemblyTitle("StockBrakeToggle")]
 [assembly: AssemblyDescription("Configurable keyboard toggle for the stock Brakes action group")]
 [assembly: AssemblyVersion("1.0.0.0")]
-[assembly: KSPAssembly("ToggleStockBrake", 1, 0)]
+[assembly: KSPAssembly("StockBrakeToggle", 1, 0)]
 
 namespace ToggleStockBrake
 {
@@ -46,7 +46,7 @@ namespace ToggleStockBrake
         {
             configPath = Path.Combine(
                 Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                Path.Combine("PluginData", "ToggleStockBrake.cfg"));
+                Path.Combine("PluginData", "StockBrakeToggle.cfg"));
             LoadConfig();
         }
 
@@ -86,7 +86,7 @@ namespace ToggleStockBrake
             ConfigNode node = root == null ? null : root.GetNode("TOGGLESTOCKBRAKE");
             if (node == null)
             {
-                Debug.LogWarning("[ToggleStockBrake] config not found or missing TOGGLESTOCKBRAKE node ("
+                Debug.LogWarning("[StockBrakeToggle] config not found or missing TOGGLESTOCKBRAKE node ("
                     + configPath + "), using defaults (" + keySpec + ")");
                 return;
             }
@@ -97,7 +97,7 @@ namespace ToggleStockBrake
             string k = node.GetValue("key");
             if (!string.IsNullOrEmpty(k) && !ApplyKeySpec(k))
             {
-                Debug.LogWarning("[ToggleStockBrake] invalid 'key' value: '" + k
+                Debug.LogWarning("[StockBrakeToggle] invalid 'key' value: '" + k
                     + "', reverting to default Alt+Y");
                 ApplyKeySpec("Alt+Y");
             }
@@ -106,14 +106,14 @@ namespace ToggleStockBrake
             KeyCode brakesSecondary = GameSettings.BRAKES.secondary.code;
             if (mainKey == brakesPrimary || (brakesSecondary != KeyCode.None && mainKey == brakesSecondary))
             {
-                Debug.LogWarning("[ToggleStockBrake] configured main key ('" + keySpec
+                Debug.LogWarning("[StockBrakeToggle] configured main key ('" + keySpec
                     + "') matches your current stock Brakes keybinding (Settings > Input > BRAKES): "
                     + "the game unconditionally forces the brake state on that physical key's "
                     + "release, regardless of modifiers, so the toggle will never be able to "
                     + "re-engage them. Pick a different main key.");
             }
 
-            Debug.Log("[ToggleStockBrake] v" + Version + ": enabled=" + enabled_ + " key=" + keySpec);
+            Debug.Log("[StockBrakeToggle] v" + Version + ": enabled=" + enabled_ + " key=" + keySpec);
         }
 
         // Expected format: '+'-separated tokens, the last one is the main key
