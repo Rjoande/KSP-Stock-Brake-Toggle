@@ -1,5 +1,11 @@
 # StockBrakeToggle
 
+> **Archived.** This mod's brake toggle has moved into
+> [**ELK - Extended Lock Keys**](https://github.com/Rjoande/ELK), which
+> also adds hotkeys for the 10 SAS autopilot modes and an optional in-game
+> toolbar for assigning keys by pressing them. No further updates will be
+> made here - install ELK instead.
+
 A tiny KSP plugin that binds a configurable key combo to **toggling** the stock *Brakes* action group. This is the exact same effect as clicking the brake icon in the flight UI, status light included.
 
 ## The problem
